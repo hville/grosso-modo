@@ -1,0 +1,34 @@
+{
+  "name": "grosso-modo",
+  "version": "1.0.0",
+  "description": "random number generator for specified confidence interval",
+  "keywords": [
+    "stats", "statistics",
+    "random", "random number generator",
+    "distribution", "normal", "logormal", "random walk"
+  ],
+  "main": "./grosso-modo.js",
+  "dependencies": {
+    "norm-dist": "^1.0.0",
+    "random-z": "^1.0.0",
+    "walk-z": "^2.0.0"
+  },
+  "devDependencies": {
+    "cotest": "^1.5.1",
+    "lazy-stats": "^1.1.0"
+  },
+  "scripts": {
+    "test": "node test",
+    "prepublish": "npm test"
+  },
+  "author": "Hugo Villeneuve",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
