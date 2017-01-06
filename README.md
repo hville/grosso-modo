@@ -28,15 +28,14 @@ var walk = dist.walk(2, 4, 0.8),
 
 All distribution take `lower` and `upper` bounds along with a `probability` confidence interval that defaults to `50%`.
 
-`probability = P(lower < X <= upper)`
+Method  | Arguments           | Returns                 | Notes
+:------ | :--------           | :------                 | :----
+`.norm` | `low, high [,prob]` | `rndNumberGenerator`    | Normal distribution `P(L < X < H)`
+`.logn` | `low, high [,prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
+`.step` | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
+`.walk` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk sum, `P(time==1; L<X<H)`
+`.rate` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk product, confidence at `P(time==1; L<X<H)`
 
-Method  | Arguments            | Returns                 | Notes
-:------ | :--------            | :------                 | :----
-`.norm` | `low, high [, prob]` | `rndNumberGenerator`    | Normal distribution `P(L < X < H)`
-`.logn` | `low, high [, prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
-`.step` | `fail, succ[, prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
-`.walk` | `low, high [, prob]` | `rndTimeSerieGenerator` | Random Walk sum, confidence interval at `time === 1`
-`.rate` | `low, high [, prob]` | `rndTimeSerieGenerator` | Random Walk product, confidence interval at `time === 1`
 
 Returned Function       | Arguments       | Returns  | Notes
 :-------                | :--------       | :------  | :----
