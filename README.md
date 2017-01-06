@@ -30,16 +30,18 @@ All distribution take `lower` and `upper` bounds along with a `probability` conf
 
 `probability = P(lower < X <= upper)`
 
-Function | Arguments            | Returns                    | Notes
-:------- | :--------            | :------                    | :----
-`.norm`  | `low, high [, prob]` | `randomNumberGenerator`    | Normal distribution `P(L < X < H)`
-`.logn`  | `low, high [, prob]` | `randomNumberGenerator`    | LogNormal distribution `P(L < X < H)`
-`.step`  | `fail, succ[, prob]` | `randomNumberGenerator`    | Bernouilli trial `P(X == succ)`
-`.walk`  | `low, high [, prob]` | `randomTimeSerieGenerator` | Random Walk sum with confidence interval at `time === 1`
-`.rate`  | `low, high [, prob]` | `randomTimeSerieGenerator` | Random Walk product with confidence interval at `time === 1`
- | | |
-`randomNumberGenerator`    | `[zSeed]`       | `Number` | Random number |
-`randomTimeSerieGenerator` | `time [,zSeed]` | `Number` | Random number |
+Method  | Arguments            | Returns                 | Notes
+:------ | :--------            | :------                 | :----
+`.norm` | `low, high [, prob]` | `rndNumberGenerator`    | Normal distribution `P(L < X < H)`
+`.logn` | `low, high [, prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
+`.step` | `fail, succ[, prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
+`.walk` | `low, high [, prob]` | `rndTimeSerieGenerator` | Random Walk sum, confidence interval at `time === 1`
+`.rate` | `low, high [, prob]` | `rndTimeSerieGenerator` | Random Walk product, confidence interval at `time === 1`
+
+Returned Function       | Arguments       | Returns  | Notes
+:-------                | :--------       | :------  | :----
+`rndNumberGenerator`    | `[zSeed]`       | `Number` | Random number |
+`rndTimeSerieGenerator` | `time [,zSeed]` | `Number` | Random number at specified time |
 
 Where `zSeed` is an optional unit normal distribution number
 
