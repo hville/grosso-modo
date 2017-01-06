@@ -1,20 +1,25 @@
 {
   "name": "grosso-modo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "random number generator for specified confidence interval",
   "keywords": [
-    "stats", "statistics",
-    "random", "random number generator",
-    "distribution", "normal", "logormal", "random walk"
+    "stats",
+    "statistics",
+    "random",
+    "random number generator",
+    "distribution",
+    "normal",
+    "logormal",
+    "random walk"
   ],
   "main": "./grosso-modo.js",
   "dependencies": {
     "norm-dist": "^1.0.0",
-    "random-z": "^1.0.0",
-    "walk-z": "^2.0.0"
+    "random-z": "^1.0.1",
+    "walk-z": "^2.0.1"
   },
   "devDependencies": {
-    "cotest": "^1.5.1",
+    "cotest": "^2.0.0",
     "lazy-stats": "^1.1.0"
   },
   "scripts": {

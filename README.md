@@ -9,18 +9,18 @@
 ## Example
 
 ```javascript
-var grossoModo = require('grosso-modo')
+var dist = require('grosso-modo')
 
-var norm = grossoModo.norm(2, 4),
+var norm = dist.norm(2, 4),
     n = norm() // normal distribution with 50% of values between 2 and 4
 
-var logn = grossoModo.logn(2, 4, 0.9),
+var logn = dist.logn(2, 4, 0.9),
     l = logn() // lognormal distribution with 90% of values between 2 and 4
 
-var step = grossoModo.step(2, 4, 0.3),
+var step = dist.step(2, 4, 0.3),
     s = step() // either 2, 70% of the time or 4, 30% of the time
 
-var walk = grossoModo.walk(2, 4, 0.8),
+var walk = dist.walk(2, 4, 0.8),
     w = step(1) // random walk at time=1, between 2 and 4 80% of the time
 ```
 
@@ -28,19 +28,22 @@ var walk = grossoModo.walk(2, 4, 0.8),
 
 All distribution take `lower` and `upper` bounds along with a `probability` confidence interval that defaults to `50%`.
 
-`probability = P(lower <= X < upper)`
+`probability = P(lower < X <= upper)`
 
-* `.norm(low, high [, prob]) => randomNumberGenerator` - Normal distribution
-* `.logn(low, high [, prob]) => randomNumberGenerator` - LogNormal distribution
-* `.step(low, high [, prob]) => randomNumberGenerator` - Bernouilli trial
-* `.walk(low, high [, prob]) => randomTimeSerieGenerator` - Random Walk sum with confidence interval at `time === 1`
-* `.rate(low, high [, prob]) => randomTimeSerieGenerator` - Random Walk product with confidence interval at `time === 1`
+Function | Arguments            | Returns                    | Notes
+:------- | :--------            | :------                    | :----
+`.norm`  | `low, high [, prob]` | `randomNumberGenerator`    | Normal distribution `P(L < X < H)`
+`.logn`  | `low, high [, prob]` | `randomNumberGenerator`    | LogNormal distribution `P(L < X < H)`
+`.step`  | `fail, succ[, prob]` | `randomNumberGenerator`    | Bernouilli trial `P(X == succ)`
+`.walk`  | `low, high [, prob]` | `randomTimeSerieGenerator` | Random Walk sum with confidence interval at `time === 1`
+`.rate`  | `low, high [, prob]` | `randomTimeSerieGenerator` | Random Walk product with confidence interval at `time === 1`
+ | | |
+`randomNumberGenerator`    | `[zSeed]`       | `Number` | Random number |
+`randomTimeSerieGenerator` | `time [,zSeed]` | `Number` | Random number |
 
-Where
+Where `zSeed` is an optional unit normal distribution number
 
-* `randomNumberGenerator([zSeed]) => randomNumber` - zSeed is an optional unit normal distribution number
-* `randomTimeSerieGenerator(time, [zSeed]) => randomNumber` - zSeed is an optional unit normal distribution number
 
 # License
 
-Released under the [MIT License](http://www.opensource.org/licenses/MIT)
+[MIT](http://www.opensource.org/licenses/MIT) © [Hugo Villeneuve](https://github.com/hville)
