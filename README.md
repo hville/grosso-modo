@@ -11,7 +11,7 @@
 ```javascript
 var dist = require('grosso-modo')
 
-var norm = dist.norm(2, 4),
+var norm = dist.norm(2, 4), //same as require('grosso-modo/norm')(2, 4)
     n = norm() // normal distribution with 50% of values between 2 and 4
 
 var logn = dist.logn(2, 4, 0.9),
@@ -34,7 +34,7 @@ Method  | Arguments           | Returns                 | Notes
 `.logn` | `low, high [,prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
 `.step` | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
 `.walk` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk sum, `P(time==1; L<X<H)`
-`.rate` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk product, confidence at `P(time==1; L<X<H)`
+`.rate` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk product, `P(time==1; L<X<H)`
 
 
 Returned Function       | Arguments       | Returns  | Notes

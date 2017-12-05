@@ -1,8 +1,8 @@
 /*eslint-env node, es6*/
 'use strict'
 var t = require('cotest'),
-		gm = require('./grosso-modo'),
-		ls = require('lazy-stats')
+		gm = require('./'),
+		LS = require('lazy-stats')
 
 t('single output', () => {
 	var rndVar = gm.norm(2, 3, 0.999)
@@ -26,7 +26,7 @@ t('aggregate output', () => {
 	var norm = gm.norm(1, 2),
 			logn = gm.logn(1, 2),
 			step = gm.step(1, 2),
-			stat = ls(5)
+			stat = new LS(5)
 	for (var i=1; i<2000; ++i) {
 		stat.push(
 			norm(),

@@ -8,6 +8,11 @@
 ## [Unreleased]
 ~~Removed, Changed, Deprecated, Added, Fixed, Security~~
 
+## [2.1.0] - 2017-12-05
+### Changed
+- each function in own file
+- updated dependencies
+- JSDoc and types
 
 ## [2.0.0] - 2017-01-06
 ### Changed
