@@ -33,6 +33,7 @@ Method  | Arguments           | Returns                 | Notes
 `.norm` | `low, high [,prob]` | `rndNumberGenerator`    | Normal distribution `P(L < X < H)`
 `.logn` | `low, high [,prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
 `.step` | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
+`.dice` | `min, max`          | `rndNumberGenerator`    | Uniform discrete distribution
 `.walk` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk sum, `P(time==1; L<X<H)`
 `.rate` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk product, `P(time==1; L<X<H)`
 

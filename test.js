@@ -4,6 +4,8 @@ var t = require('cotest'),
 		gm = require('./'),
 		LS = require('lazy-stats')
 
+gm.dice(1,6)()
+
 t('single output', () => {
 	var rndVar = gm.norm(2, 3, 0.999)
 	t('>', rndVar(), 1)
@@ -58,6 +60,7 @@ t('lower confidence => greater range', () => {
 	t('>', gm.norm(1, 3, 0.89)(0.1), gm.norm(1, 3, 0.91)(0.1))
 	t('<', gm.norm(1, 3, 0.89)(-0.1), gm.norm(1, 3, 0.91)(-0.1))
 	t('>', gm.logn(1, 3, 0.89)(0.1), gm.logn(1, 3, 0.91)(0.1))
+
 	t('<', gm.logn(1, 3, 0.89)(-0.1), gm.logn(1, 3, 0.91)(-0.1))
 })
 t('greater seed => greater value', () => {
@@ -68,6 +71,9 @@ t('greater seed => greater value', () => {
 	t('>', gm.logn(1, 2, 0.8)(-0.2), gm.logn(1, 2, 0.8)(-0.3))
 
 	t('>', gm.step(1, 2)(0.9), gm.step(1, 2)(-0.9))
+
+	t('>', gm.dice(1, 2)(0.9), gm.dice(1, 2)(-0.9))
+	t('>', gm.dice(1, 6)(0.5), gm.dice(1, 6)(-0.5))
 })
 t('step', () => {
 	t('<', gm.step(1, 2, 0.1)(0), gm.step(1, 2, 0.9)(0), 'low confidence, low success')

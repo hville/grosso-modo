@@ -1,21 +1,13 @@
 {
   "name": "grosso-modo",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "random number generator for specified confidence interval",
   "keywords": [
-    "stats",
-    "statistics",
-    "sampling",
-    "sampler",
+    "stats", "statistics",
+    "sampling", "sampler", "dice",
     "monte carlo",
-    "random",
-    "random number generator",
-    "distribution",
-    "normal",
-    "gaussian",
-    "lognormal",
-    "random walk",
-    "bernouilli trial"
+    "random", "random number generator",
+    "distribution", "normal", "discrete", "gaussian", "lognormal", "bernouilli trial", "random walk"
   ],
   "dependencies": {
     "norm-dist": "^2.0.1",
