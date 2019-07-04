@@ -1,4 +1,4 @@
-var rndZ = require('random-z'),
+var iZ = require('norm-dist/icdf'),
 		N = require('norm-dist')
 
 /**
@@ -17,6 +17,6 @@ module.exports = function(low, high, prob) {
 	 * @returns {number}
 	 */
 	return function(zSeed) {
-		return Math.exp((zSeed === undefined ? rndZ() : zSeed) * si + mu)
+		return Math.exp((zSeed === undefined ? iZ(Math.random()) : zSeed) * si + mu)
 	}
 }

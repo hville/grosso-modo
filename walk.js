@@ -1,4 +1,4 @@
-var rndZ = require('random-z'),
+var iZ = require('norm-dist/icdf'),
 		N = require('norm-dist'),
 		WalkZ = require('walk-z')
 
@@ -20,6 +20,6 @@ module.exports = function(low, high, prob) {
 	 * @returns {number}
 	 */
 	return function(time, zSeed) {
-		return wk(time, (zSeed === undefined ? rndZ() : zSeed)) * si + mu
+		return wk(time, (zSeed === undefined ? iZ(Math.random()) : zSeed)) * si + mu
 	}
 }

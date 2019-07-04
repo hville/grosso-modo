@@ -1,4 +1,4 @@
-var rndZ = require('random-z'),
+var iZ = require('norm-dist/icdf'),
 		N = require('norm-dist')
 
 /**
@@ -19,7 +19,7 @@ module.exports = function(min, max) {
 	 */
 	return function(zSeed) {
 		var k = 0
-		if (zSeed === undefined) zSeed = rndZ()
+		if (zSeed === undefined) zSeed = iZ(Math.random())
 		while(zSeed > refs[k]) ++k
 		return min + k
 	}

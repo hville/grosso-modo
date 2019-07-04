@@ -8,6 +8,10 @@
 ## [Unreleased]
 ~~Removed, Changed, Deprecated, Added, Fixed, Security~~
 
+## [3.0.0] - 2019-07-03
+### Changed
+- Uses module `norm-dist/icdf` instead of `random-z` for faster random Z generation
+
 ## [2.1.0] - 2017-12-05
 ### Changed
 - each function in own file
