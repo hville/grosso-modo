@@ -1,6 +1,6 @@
 {
   "name": "grosso-modo",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "random number generator for specified confidence interval",
   "keywords": [
     "stats",

@@ -1,5 +1,4 @@
-var iZ = require('norm-dist/icdf'),
-		N = require('norm-dist'),
+var icdf = require('norm-dist/icdf'),
 		WalkZ = require('walk-z')
 
 /**
@@ -12,7 +11,7 @@ var iZ = require('norm-dist/icdf'),
 module.exports = function(low, high, prob) {
 	var wk = WalkZ(),
 			mu = (high + low) / 2,
-			si = (high - low) / N.icdf( (1 + (prob || 0.5)) / 2 ) / 2
+			si = (high - low) / icdf( (1 + (prob || 0.5)) / 2 ) / 2
 
 	/**
  	 * @param {number} time
@@ -20,6 +19,6 @@ module.exports = function(low, high, prob) {
 	 * @returns {number}
 	 */
 	return function(time, zSeed) {
-		return wk(time, (zSeed === undefined ? iZ(Math.random()) : zSeed)) * si + mu
+		return wk(time, (zSeed === undefined ? icdf(Math.random()) : zSeed)) * si + mu
 	}
 }

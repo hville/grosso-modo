@@ -1,5 +1,4 @@
-var iZ = require('norm-dist/icdf'),
-		N = require('norm-dist')
+var icdf = require('norm-dist/icdf')
 
 /**
  * Bernouilli Trial
@@ -9,13 +8,13 @@ var iZ = require('norm-dist/icdf'),
  * @returns {Function} - random number generator
  */
 module.exports = function(fail, succ, prob) { // prob == P(X==H)
-	var edge = -N.icdf(prob || 0.5)
+	var edge = -icdf(prob || 0.5)
 
 	/**
 	 * @param {number} [zSeed]
 	 * @returns {number}
 	 */
 	return function(zSeed) {
-		return ((zSeed === undefined ? iZ(Math.random()) : zSeed) > edge) ? succ : fail
+		return ((zSeed === undefined ? icdf(Math.random()) : zSeed) > edge) ? succ : fail
 	}
 }

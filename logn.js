@@ -1,5 +1,4 @@
-var iZ = require('norm-dist/icdf'),
-		N = require('norm-dist')
+var icdf = require('norm-dist/icdf')
 
 /**
  * LogNormal Distribution
@@ -11,12 +10,12 @@ var iZ = require('norm-dist/icdf'),
 module.exports = function(low, high, prob) {
 	if (low <= 0 || high <= low) throw Error('LogNormal values must be 0 < L < H')
 	var mu = Math.log(high*low) / 2,
-			si = Math.log(high/low) / N.icdf( (1 + (prob || 0.5)) / 2 ) / 2
+			si = Math.log(high/low) / icdf( (1 + (prob || 0.5)) / 2 ) / 2
 	/**
  	 * @param {number} [zSeed]
 	 * @returns {number}
 	 */
 	return function(zSeed) {
-		return Math.exp((zSeed === undefined ? iZ(Math.random()) : zSeed) * si + mu)
+		return Math.exp((zSeed === undefined ? icdf(Math.random()) : zSeed) * si + mu)
 	}
 }

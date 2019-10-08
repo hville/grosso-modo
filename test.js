@@ -1,4 +1,4 @@
-/*eslint-env node, es6*/
+/* eslint-env node, es6*/
 'use strict'
 var t = require('cotest'),
 		gm = require('./'),
@@ -74,6 +74,10 @@ t('greater seed => greater value', () => {
 
 	t('>', gm.dice(1, 2)(0.9), gm.dice(1, 2)(-0.9))
 	t('>', gm.dice(1, 6)(0.5), gm.dice(1, 6)(-0.5))
+	t('==', gm.dice(1, 6)(-Infinity), 1)
+	t('==', gm.dice(1, 6)(Infinity), 6)
+	t('==', gm.dice(1, 6)(-Number.EPSILON), 3)
+	t('==', gm.dice(1, 6)(Number.EPSILON), 4)
 })
 t('step', () => {
 	t('<', gm.step(1, 2, 0.1)(0), gm.step(1, 2, 0.9)(0), 'low confidence, low success')
