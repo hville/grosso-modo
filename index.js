@@ -4,6 +4,7 @@ module.exports = {
 	logn: require('./logn'),
 	step: require('./step'),
 	dice: require('./dice'),
+	weibull: require('./weibull'),
 	walk: require('./walk'),
 	rate: require('./rate')
 }

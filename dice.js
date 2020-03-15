@@ -11,14 +11,13 @@ module.exports = function(min, max) {
 			refs = []
 	for (var i=1; i<size; ++i) refs[i-1] = icdf(i/size) //eg [Q(1/6), Q(2/6), Q(3/6), Q(4/6), Q(5/6)]
 	refs[i-1] = Infinity
-
 	/**
  	 * @param {number} [zSeed]
 	 * @returns {number}
 	 */
 	return function(zSeed) {
+		if (zSeed === undefined) return min + Math.floor(Math.random()*size)
 		var k = 0
-		if (zSeed === undefined) zSeed = icdf(Math.random())
 		while(zSeed > refs[k]) ++k
 		return min + k
 	}

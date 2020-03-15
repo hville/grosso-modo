@@ -1,6 +1,6 @@
 {
   "name": "grosso-modo",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "random number generator for specified confidence interval",
   "keywords": [
     "stats",
@@ -20,13 +20,13 @@
     "random walk"
   ],
   "dependencies": {
-    "norm-dist": "^2.0.1",
+    "norm-dist": "^2.0.2",
     "walk-z": "^3.0.1"
   },
   "devDependencies": {
-    "@types/node": "^8.0.55",
-    "cotest": "^3.0.0",
-    "lazy-stats": "^2.0.1"
+    "@types/node": "^13.9.1",
+    "cotest": "^4.0.3",
+    "lazy-stats": "^3.0.0"
   },
   "scripts": {
     "test": "node test",

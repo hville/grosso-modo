@@ -8,6 +8,10 @@
 ## [Unreleased]
 ~~Removed, Changed, Deprecated, Added, Fixed, Security~~
 
+## [3.1.0] - 2020-03-14
+### Added
+- Weibull distribution
+
 ## [3.0.1] - 2019-07-03
 ### Fixed
 - Removed duplicate requires of the same function
