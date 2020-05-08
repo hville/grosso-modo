@@ -10,7 +10,7 @@ var icdf = require('norm-dist/icdf')
 module.exports = function(low, high, prob) {
 	if (low <= 0 || high <= low) throw Error('LogNormal values must be 0 < L < H')
 	var mu = Math.log(high*low) / 2,
-			si = Math.log(high/low) / icdf( (1 + (prob || 0.5)) / 2 ) / 2
+			si = Math.log(high/low) / 2 / icdf( ( (prob || 0.5) + 1) / 2 )
 	/**
  	 * @param {number} [zSeed]
 	 * @returns {number}

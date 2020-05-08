@@ -1,3 +1,5 @@
+var icdf = require('norm-dist/icdf')
+
 /* eslint-env node, es6*/
 'use strict'
 var t = require('cotest'),
@@ -80,5 +82,30 @@ t('weibull', t => {
 	var wb = gm.weibull(10, 11)
 	t('<', wb(0), 11)
 	t('>', wb(0), 10)
+})
+t('confidence', t => {
+	/* function confidence(f, L, H, c, msg) {
+		var n = 1e5,
+				p = (c+1)/2
+		for (var i=0, fcn=f(L,H,c), res=[]; i<n; ++i) res.push(fcn())
+		res.sort(function(a,b) { return a-b })
+		t('<', Math.abs(res[Math.round(n*(1-p))] - L), 1e-3, msg + ' lower bound')
+		t('<', Math.abs(res[Math.round(n*(p))] - H), 1e-3, msg + ' upper bound')
+	} */
+
+	function confidence(f, L, H, c, msg) {
+		var p = (c+1)/2,
+				fcn=f(L,H,c)
+		t('<', Math.abs(fcn(icdf(1-p)) - L), 1e-6, msg + ' lower bound')
+		t('<', Math.abs(fcn(icdf(p)) - H), 1e-6, msg + ' upper bound')
+	}
+
+	confidence(gm.norm, 2,3,0.9,'norm 0.9')
+	confidence(gm.logn, 2,3,0.9,'logn 0.9')
+	confidence(gm.weibull, 2,3,0.9,'weib 0.9')
+	confidence(gm.norm, 2,3,0.6,'norm 0.6')
+	confidence(gm.logn, 2,3,0.6,'logn 0.6')
+	confidence(gm.weibull, 2,3,0.6,'weib 0.6')
 
 })
+

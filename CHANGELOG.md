@@ -8,6 +8,10 @@
 ## [Unreleased]
 ~~Removed, Changed, Deprecated, Added, Fixed, Security~~
 
+## [3.1.1] - 2020-05-07
+### Added
+- more confidence tests
+
 ## [3.1.0] - 2020-03-14
 ### Added
 - Weibull distribution
