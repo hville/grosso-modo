@@ -1,15 +1,16 @@
-var icdf = require('norm-dist/icdf')
+import icdf from 'norm-dist/icdf.js'
 
 /**
  * Normal Distribution
  * @param {number} low - range lower bound
  * @param {number} high - range lower bound
  * @param {number} [prob] - confidence interval
- * @returns {Function} - random number generator
+ * @returns {number => number} - random number generator
  */
-module.exports = function(low, high, prob) {
-	var mu = (high + low) / 2,
-			si = (high - low) / icdf( (1 + (prob || 0.5)) / 2 ) / 2
+export default function(low, high, prob=0.5) {
+	if (high <= low) throw Error('high <= low')
+	const mu = (high + low) / 2,
+				si = (high - low) / icdf( (1 + prob) / 2 ) / 2
 
 	/**
  	 * @param {number} [zSeed]

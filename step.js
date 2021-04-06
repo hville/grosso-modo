@@ -1,14 +1,14 @@
-var icdf = require('norm-dist/icdf')
+import icdf from 'norm-dist/icdf.js'
 
 /**
  * Bernouilli Trial
  * @param {number} fail - failure value
  * @param {number} succ - success value
  * @param {number} [prob] - probability of success
- * @returns {Function} - random number generator
+ * @returns {number => number} - random number generator
  */
-module.exports = function(fail, succ, prob) { // prob == P(X==H)
-	var edge = -icdf(prob || 0.5)
+ export default function(fail, succ, prob=0.5) { // prob == P(X==H)
+	const edge = -icdf(prob)
 
 	/**
 	 * @param {number} [zSeed]
