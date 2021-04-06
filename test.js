@@ -1,111 +1,56 @@
-var icdf = require('norm-dist/icdf')
+import icdf from 'norm-dist/icdf.js'
+import t from 'assert-op'
+import a from 'assert-op/assert.js'
+import {norm, logn, step, dice, weibull, uniform} from './index.js'
+import LS from 'lazy-stats'
 
-/* eslint-env node, es6*/
-'use strict'
-var t = require('cotest'),
-		gm = require('./'),
-		LS = require('lazy-stats')
-
-gm.dice(1,6)()
-
-t('single output', t => {
-	var rndVar = gm.norm(2, 3, 0.999)
-	t('>', rndVar(), 1)
-	t('<', rndVar(), 4)
-	rndVar = gm.logn(2, 3, 0.999)
-	t('>', rndVar(), 1)
-	t('<', rndVar(), 4)
-	rndVar = gm.step(2, 3, 0.999)
-	t('>=', rndVar(), 2)
-	t('<=', rndVar(), 3)
-	rndVar = gm.walk(2, 3, 0.999)
-	t('>', rndVar(1), 1)
-	t('<', rndVar(1), 4)
-	rndVar = gm.rate(2, 3, 0.999)
-	t('>', rndVar(1), 1)
-	t('<', rndVar(1), 4)
+function test(fn,rp,rq, ci) {
+	const rg = fn(rp,rq, ci),
+				xp = rg(icdf( (1-ci)/2 )),
+				xq = rg(icdf( (1+ci)/2 ))
+	//console.log(rg(-Infinity), xp, rg(0), xq, rg(Infinity))
+	a('<=', rg(-Infinity), xp, 'monotonic')
+	a('<', xp, rg(0), 'monotonic')
+	a('<', rg(0), xq, 'monotonic')
+	a('<=', xq, rg(Infinity), 'monotonic')
+	a('<', Math.abs(xp-rp), 1e-6, 'correct lower range')
+	a('<', Math.abs(xq-rq), 1e-6, 'correct upper range')
+}
+t('norm', a => {
+	test(norm, -1,1,0.5)
+	test(norm, -1,1,0.8)
+	test(norm, -2,-1,0.5)
+	test(norm, 1,2,0.5)
+	a('throws', ()=>norm(1,-1))
+})
+t('uniform', a => {
+	test(uniform, -1,1,0.5)
+	test(uniform, -2,-1,0.5)
+	test(uniform, 1,2,0.5)
+	test(uniform, 1,2,0.8)
+	a('throws', ()=>uniform(1,-1))
+})
+t('logn', a => {
+	test(logn, 1,2,0.5)
+	test(logn, 1,2,0.8)
+	test(logn, -2,-1,0.5)
+	a('throws', ()=>logn(2,1))
+	a('throws', ()=>logn(-1,2))
+})
+t('weibull', a => {
+	test(weibull, 1,2,0.5)
+	test(weibull, 1,2,0.8)
+	test(weibull, -2,-1,0.5)
+	a('throws', ()=>weibull(2,1))
+	a('throws', ()=>weibull(-1,2))
+})
+t('dice', a => {
+	test(dice, -1,8,.9)
+	test(dice, -4,-1,.9)
+	test(dice, 1,4,.9)
+	a('throws', ()=>dice(1,-1))
 })
 
-t('aggregate output', t => {
-	var norm = gm.norm(1, 2),
-			logn = gm.logn(1, 2),
-			step = gm.step(1, 2),
-			weib = gm.weibull(1, 2),
-			stat = new LS(6)
-	for (var i=1; i<2000; ++i) {
-		stat.push(
-			norm(),
-			logn(),
-			step(),
-			(gm.walk(1, 2)(i) - 1.5)/Math.sqrt(i),
-			(Math.log(gm.rate(1, 2)(i)) - 1.5)/Math.sqrt(i),
-			weib(),
-		)
-	}
-	t('<', Math.abs(stat.ave(0) - 1.5), 0.1)
-	t('<', Math.abs(stat.ave(1) - Math.log((Math.exp(2)+Math.exp(1))/2)), 0.1)
-	t('<', Math.abs(stat.ave(2) - 1.5), 0.1)
-	t('<', Math.abs(stat.ave(3) - 0), 0.1)
-	t('<', Math.abs(stat.ave(4) - 0), 0.1)
-	t('>', stat.ave(5), 1.5, 'skewed')
+t('step', a => {
+	a('<', step(1, 2, 0.1)(0), step(1, 2, 0.9)(0), 'low confidence, low success')
 })
-t('lower confidence => greater range', t => {
-	t('>', gm.norm(1, 3, 0.89)(0.1), gm.norm(1, 3, 0.91)(0.1))
-	t('<', gm.norm(1, 3, 0.89)(-0.1), gm.norm(1, 3, 0.91)(-0.1))
-	t('>', gm.logn(1, 3, 0.89)(0.1), gm.logn(1, 3, 0.91)(0.1))
-
-	t('<', gm.logn(1, 3, 0.89)(-0.1), gm.logn(1, 3, 0.91)(-0.1))
-})
-t('greater seed => greater value', t => {
-	t('>', gm.norm(-1, 1, 0.8)(0.3), gm.norm(-1, 1, 0.8)(0.2))
-	t('>', gm.norm(-1, 1, 0.8)(-0.2), gm.norm(-1, 1, 0.8)(-0.3))
-
-	t('>', gm.logn(1, 2, 0.8)(0.3), gm.logn(1, 2, 0.8)(0.2))
-	t('>', gm.logn(1, 2, 0.8)(-0.2), gm.logn(1, 2, 0.8)(-0.3))
-
-	t('>', gm.step(1, 2)(0.9), gm.step(1, 2)(-0.9))
-
-	t('>', gm.dice(1, 2)(0.9), gm.dice(1, 2)(-0.9))
-	t('>', gm.dice(1, 6)(0.5), gm.dice(1, 6)(-0.5))
-	t('==', gm.dice(1, 6)(-Infinity), 1)
-	t('==', gm.dice(1, 6)(Infinity), 6)
-	t('==', gm.dice(1, 6)(-Number.EPSILON), 3)
-	t('==', gm.dice(1, 6)(Number.EPSILON), 4)
-})
-t('step', t => {
-	t('<', gm.step(1, 2, 0.1)(0), gm.step(1, 2, 0.9)(0), 'low confidence, low success')
-})
-t('weibull', t => {
-	var wb = gm.weibull(13, 38, 0.5)
-	t('<', wb(-0.675), 13)
-	t('>', wb(+0.675), 38)
-	var wb = gm.weibull(10, 11)
-	t('<', wb(0), 11)
-	t('>', wb(0), 10)
-})
-t('confidence', t => {
-	/* function confidence(f, L, H, c, msg) {
-		var n = 1e5,
-				p = (c+1)/2
-		for (var i=0, fcn=f(L,H,c), res=[]; i<n; ++i) res.push(fcn())
-		res.sort(function(a,b) { return a-b })
-		t('<', Math.abs(res[Math.round(n*(1-p))] - L), 1e-3, msg + ' lower bound')
-		t('<', Math.abs(res[Math.round(n*(p))] - H), 1e-3, msg + ' upper bound')
-	} */
-
-	function confidence(f, L, H, c, msg) {
-		var p = (c+1)/2,
-				fcn=f(L,H,c)
-		t('<', Math.abs(fcn(icdf(1-p)) - L), 1e-6, msg + ' lower bound')
-		t('<', Math.abs(fcn(icdf(p)) - H), 1e-6, msg + ' upper bound')
-	}
-
-	confidence(gm.norm, 2,3,0.9,'norm 0.9')
-	confidence(gm.logn, 2,3,0.9,'logn 0.9')
-	confidence(gm.weibull, 2,3,0.9,'weib 0.9')
-	confidence(gm.norm, 2,3,0.6,'norm 0.6')
-	confidence(gm.logn, 2,3,0.6,'logn 0.6')
-	confidence(gm.weibull, 2,3,0.6,'weib 0.6')
-
-})
-

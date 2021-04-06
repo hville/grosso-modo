@@ -3,48 +3,37 @@
 # grosso-modo
 
 *random number generator for specified confidence interval*
+**note that this uses a gaussian Z as seed and not the usual uniform U to facilitate the generation of correlated variables**
 
 • [Example](#example) • [API](#api) • [License](#license)
 
 ## Example
 
 ```javascript
-var dist = require('grosso-modo')
+import {norm, logn} from 'grosso-modo'
 
-var norm = dist.norm(2, 4), //same as require('grosso-modo/norm')(2, 4)
-    n = norm() // normal distribution with 50% of values between 2 and 4
-
-var logn = dist.logn(2, 4, 0.9),
-    l = logn() // lognormal distribution with 90% of values between 2 and 4
-
-var step = dist.step(2, 4, 0.3),
-    s = step() // either 2, 70% of the time or 4, 30% of the time
-
-var walk = dist.walk(2, 4, 0.8),
-    w = step(1) // random walk at time=1, between 2 and 4 80% of the time
+const n = norm(2, 4)(),      // normal distribution with 50% of values between 2 and 4
+      l = logn(2, 4, 0.9)(), // lognormal distribution with 90% of values between 2 and 4
 ```
 
 ## API
 
 All distribution take `lower` and `upper` bounds along with a `probability` confidence interval that defaults to `50%`.
 
-Method  | Arguments           | Returns                 | Notes
-:------ | :--------           | :------                 | :----
-`.norm` | `low, high [,prob]` | `rndNumberGenerator`    | Normal distribution `P(L < X < H)`
-`.logn` | `low, high [,prob]` | `rndNumberGenerator`    | LogNormal distribution `P(L < X < H)`
-`.step` | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
-`.dice` | `min, max`          | `rndNumberGenerator`    | Uniform discrete distribution
-`.walk` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk sum, `P(time==1; L<X<H)`
-`.rate` | `low, high [,prob]` | `rndTimeSerieGenerator` | Random Walk product, `P(time==1; L<X<H)`
-
+Method     | Arguments           | Returns                 | Notes
+:-----     | :--------           | :------                 | :----
+`.norm`    | `low, high [,prob]` | `rndNumberGenerator`    | normal distribution
+`.logn`    | `low, high [,prob]` | `rndNumberGenerator`    | lognormal distribution
+`.uniform` | `low, high [,prob]` | `rndNumberGenerator`    | uniform distribution
+`.weibull` | `low, high [,prob]` | `rndNumberGenerator`    | weibull distribution
+`.step`    | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
+`.dice`    | `min, max`          | `rndNumberGenerator`    | Uniform discrete distribution
 
 Returned Function       | Arguments       | Returns  | Notes
-:-------                | :--------       | :------  | :----
-`rndNumberGenerator`    | `[zSeed]`       | `Number` | Random number |
-`rndTimeSerieGenerator` | `time [,zSeed]` | `Number` | Random number at specified time |
+:----------------       | :--------       | :------  | :----
+`rndNumberGenerator`    | `[zSeed]`       | `Number` | Random number
 
 Where `zSeed` is an optional unit normal distribution number
-
 
 # License
 
