@@ -26,8 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
-    "assert-op": "^0.8.0",
-    "lazy-stats": "^3.0.0"
+    "assert-op": "^0.8.0"
   },
   "scripts": {
     "test": "node test",
