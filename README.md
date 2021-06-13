@@ -28,6 +28,7 @@ Method     | Arguments           | Returns                 | Notes
 `.weibull` | `low, high [,prob]` | `rndNumberGenerator`    | weibull distribution
 `.step`    | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
 `.dice`    | `min, max`          | `rndNumberGenerator`    | Uniform discrete distribution
+`.dagum`   | `low, high [,prob]` | `rndNumberGenerator`    | dagum distribution of shape p=1
 
 Returned Function       | Arguments       | Returns  | Notes
 :----------------       | :--------       | :------  | :----
