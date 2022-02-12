@@ -1,4 +1,4 @@
-import icdf from 'norm-dist/icdf.js'
+import icdf from 'norm-dist/icdf-voutier.js'
 import t from 'assert-op'
 import a from 'assert-op/assert.js'
 import {norm, logn, step, dice, weibull, uniform, dagum} from './index.js'
@@ -8,13 +8,12 @@ function test(fn,rp,rq, ci) {
 	const rg = fn(rp,rq, ci),
 				xp = rg(icdf( (1-ci)/2 )),
 				xq = rg(icdf( (1+ci)/2 ))
-	//console.log(rg(-Infinity), xp, rg(0), xq, rg(Infinity))
 	a('<=', rg(-Infinity), xp, 'monotonic')
 	a('<', xp, rg(0), 'monotonic')
 	a('<', rg(0), xq, 'monotonic')
 	a('<=', xq, rg(Infinity), 'monotonic')
-	a('<', Math.abs(xp-rp), 1e-6, 'correct lower range')
-	a('<', Math.abs(xq-rq), 1e-6, 'correct upper range')
+	a('<', Math.abs(xp-rp), 2e-4, 'correct lower range')
+	a('<', Math.abs(xq-rq), 2e-4, 'correct upper range')
 }
 t('norm', a => {
 	test(norm, -1,1,0.5)

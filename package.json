@@ -1,7 +1,7 @@
 {
   "name": "grosso-modo",
   "type": "module",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "random number generator for specified confidence interval",
   "keywords": [
     "stats",
@@ -21,7 +21,7 @@
     "bernouilli trial"
   ],
   "dependencies": {
-    "norm-dist": "^3.0.1",
+    "norm-dist": "^3.1.0",
     "walk-z": "^3.0.1"
   },
   "devDependencies": {
