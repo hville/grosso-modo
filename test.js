@@ -1,7 +1,7 @@
 import icdf from 'norm-dist/icdf-voutier.js'
 import t from 'assert-op'
 import a from 'assert-op/assert.js'
-import {norm, logn, step, dice, weibull, uniform, dagum} from './index.js'
+import {norm, logn, step, dice, weibull, uniform, dagum, gumbel} from './index.js'
 //import LS from 'lazy-stats'
 
 function test(fn,rp,rq, ci) {
@@ -55,6 +55,12 @@ t('dagum', a => {
 	test(dagum, -2,-1,0.5)
 	a('throws', ()=>dagum(2,1))
 	a('throws', ()=>dagum(-1,2))
+})
+t('gumbel', a => {
+	test(gumbel, 1,2,0.5)
+	test(gumbel, 1,2,0.8)
+	test(gumbel, -2,-1,0.5)
+	a('throws', ()=>dagum(2,1))
 })
 t('step', a => {
 	a('<', step(1, 2, 0.1)(0), step(1, 2, 0.9)(0), 'low confidence, low success')

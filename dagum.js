@@ -2,6 +2,7 @@ import cdf from 'norm-dist/cdf.js'
 
 /**
  * Dagum Distribution shape k = 1
+ * https://en.wikipedia.org/wiki/Dagum_distribution
  * @param {number} low - range lower bound
  * @param {number} high - range lower bound
  * @param {number} [prob] - confidence interval

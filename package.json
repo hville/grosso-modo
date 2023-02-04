@@ -1,7 +1,7 @@
 {
   "name": "grosso-modo",
   "type": "module",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "random number generator for specified confidence interval",
   "keywords": [
     "stats",

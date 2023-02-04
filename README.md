@@ -22,13 +22,14 @@ All distribution take `lower` and `upper` bounds along with a `probability` conf
 
 Method     | Arguments           | Returns                 | Notes
 :-----     | :--------           | :------                 | :----
-`.norm`    | `low, high [,prob]` | `rndNumberGenerator`    | normal distribution
-`.logn`    | `low, high [,prob]` | `rndNumberGenerator`    | lognormal distribution
-`.uniform` | `low, high [,prob]` | `rndNumberGenerator`    | uniform distribution
-`.weibull` | `low, high [,prob]` | `rndNumberGenerator`    | weibull distribution
+`.norm`    | `low, high [,prob]` | `rndNumberGenerator`    | Normal distribution
+`.logn`    | `low, high [,prob]` | `rndNumberGenerator`    | Lognormal distribution
+`.uniform` | `low, high [,prob]` | `rndNumberGenerator`    | Uniform distribution
+`.weibull` | `low, high [,prob]` | `rndNumberGenerator`    | Weibull distribution
 `.step`    | `fail,succ [,prob]` | `rndNumberGenerator`    | Bernouilli trial `P(X == succ)`
 `.dice`    | `min, max`          | `rndNumberGenerator`    | Uniform discrete distribution
-`.dagum`   | `low, high [,prob]` | `rndNumberGenerator`    | dagum distribution of shape p=1
+`.dagum`   | `low, high [,prob]` | `rndNumberGenerator`    | Dagum distribution of shape p=1
+`.gumbel`  | `low, high [,prob]` | `rndNumberGenerator`    | Gumbel distribution
 
 Returned Function       | Arguments       | Returns  | Notes
 :----------------       | :--------       | :------  | :----
